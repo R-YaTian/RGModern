@@ -90,11 +90,11 @@ if(Ruby_EXT_LIBRARY_DIR)
     # Ruby fiddle
     unset(Ruby_EXT_FIDDLE_LIBRARIES)
     _RUBY_FIND_EXT(Ruby_EXT_FIDDLE_LIBRARIES "fiddle;fiddle.a")
-    target_link_libraries(Game ${Ruby_EXT_FIDDLE_LIBRARIES})
+    target_link_libraries(Game -s -O3 ${Ruby_EXT_FIDDLE_LIBRARIES})
     # Ruby zlib
     unset(Ruby_EXT_ZLIB_LIBRARIES)
     _RUBY_FIND_EXT(Ruby_EXT_ZLIB_LIBRARIES "zlib;zlib.a")
-    target_link_libraries(Game ${Ruby_EXT_ZLIB_LIBRARIES})
+    target_link_libraries(Game -s -O3 ${Ruby_EXT_ZLIB_LIBRARIES})
 else()
     # message(SEND_ERROR "Could NOT find Ruby EXT: ${_Ruby_EXT_LIBRARIES_NAME} (missing Ruby_EXT_LIBRARY_DIR)")
 endif()
@@ -112,7 +112,6 @@ find_package(OpenGL REQUIRED)
 find_package(ZLIB REQUIRED)
 find_package(LibZip REQUIRED)
 find_package(libffi REQUIRED)
-find_package(GMP REQUIRED)
 set(CENTURION_INCLUDE_DIRS "./third_party/centurion/src")
 set(CONCURRENTQUEUE_INCLUDE_DIRS "./third_party/concurrentqueue")
 set(INCBIN_INCLUDE_DIRS "./third_party/incbin")
@@ -138,7 +137,7 @@ target_include_directories(Game PRIVATE
     ${FIBER_INCLUDE_DIRS}
 )
 # LIB
-target_link_libraries(Game
+target_link_libraries(Game -s -O3
     ${Ruby_LIBRARIES}
     SDL2::Core
     SDL2::Main
@@ -150,21 +149,20 @@ target_link_libraries(Game
     ZLIB::ZLIB
     ${LIBZIP_LIBRARY}
     libffi::libffi
-    ${GMP_LIBRARIES}
     "$<$<BOOL:${MINGW}>:mingw32>"
 )
 
 if(WIN32)
     # windows 静态链接特有选项
     if(MINGW)
-        target_link_libraries(Game
+        target_link_libraries(Game -s -O3
             "m;harfbuzz;freetype;bz2;brotlidec;graphite2;intl;brotlicommon;"
             "png;tiff;webp;jpeg;jbig;lzma;deflate;zstd;lerc;jxl;hwy;sharpyuv"
             "flac;mpg123;vorbisfile;opusfile;ogg;vorbis;opus"
             "d3dx9"
         )
     endif()
-    target_link_libraries(Game
+    target_link_libraries(Game -s -O3
         "d3d9;d3d11"
         "dinput8;dwrite"
         "shell32;ws2_32;iphlpapi;imagehlp;shlwapi;bcrypt"
@@ -196,7 +194,7 @@ if(RGM_BUILDMODE)
         add_custom_command(TARGET ${ZIP_EMBEDED}
             POST_BUILD
             BYPRODUCTS ${ZIP_EMBEDED}.zip
-            COMMAND ${7ZIP_EXECUTABLE} a -tzip -mx9 -p${_PASSWORD256} ${CMAKE_CURRENT_BINARY_DIR}/${ZIP_EMBEDED}.zip ${CMAKE_CURRENT_SOURCE_DIR}/src/script ${CMAKE_CURRENT_SOURCE_DIR}/src/config.ini
+            COMMAND ${7ZIP_EXECUTABLE} a -tzip -mx9 -p${_PASSWORD256} ${CMAKE_CURRENT_BINARY_DIR}/${ZIP_EMBEDED}.zip ./src/script ./src/config.ini
             VERBATIM
         )
     endif()
