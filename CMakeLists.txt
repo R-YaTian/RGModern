@@ -157,7 +157,7 @@ if(WIN32)
     if(MINGW)
         target_link_libraries(Game -s -O3
             "m;harfbuzz;freetype;bz2;brotlidec;graphite2;intl;brotlicommon;"
-            "png;tiff;webp;jpeg;jbig;lzma;deflate;zstd;lerc;jxl;hwy;sharpyuv"
+            "png;avif;aom;yuv;dav1d;rav1e;tiff;webp;webpdemux;jpeg;jbig;lzma;deflate;zstd;lerc;jxl;hwy;sharpyuv"
             "flac;mpg123;vorbisfile;opusfile;ogg;vorbis;opus"
             "d3dx9"
         )
@@ -166,7 +166,7 @@ if(WIN32)
         "d3d9;d3d11"
         "dinput8;dwrite"
         "shell32;ws2_32;iphlpapi;imagehlp;shlwapi;bcrypt"
-        "setupapi;advapi32;uuid;version;oleaut32;ole32;imm32;winmm;user32;rpcrt4;usp10"
+        "setupapi;advapi32;uuid;version;oleaut32;ole32;imm32;winmm;user32;rpcrt4;usp10;ntdll"
     )
 endif()
 
