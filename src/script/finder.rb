@@ -51,7 +51,7 @@ module Finder
     font: ['', '.ttf', '.ttc'],
     image: ['', '.png', '.jpg', '.bmp', '.webp', '.gif', '.tiff'],
     music: ['', '.mp3', '.wav', '.ogg', '.mid'],
-    sound: ['', '.wav', '.ogg'],
+    sound: ['', '.mp3', '.wav', '.ogg', '.wma'],
     soundfont: ['', '.sf2'],
     data: ['', '.rxdata'],
     none: ['']
