@@ -2,6 +2,21 @@ cmake_minimum_required(VERSION 3.25)
 project(RGModern)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
+set(Ruby_VERSION_MAJOR 3)
+set(Ruby_VERSION_MINOR 2)
+set(Ruby_VERSION_PATCH 8)
+
+set(ENV{MY_RUBY_HOME} "third_party/ruby32")
+set(ENV{SDL2DIR} "third_party/vcextdeps")
+set(ENV{FFI_DIR} "third_party/vcextdeps")
+set(ENV{LIBZIP_DIR} "third_party/vcextdeps")
+
+set(Ruby_CONFIG_INCLUDE_DIR "third_party/ruby32/include")
+set(Ruby_INCLUDE_DIR "third_party/ruby32/include")
+set(Ruby_LIBRARY "third_party/ruby32/lib/vcruntime140-ruby320-static")
+set(Ruby_EXT_LIBRARY_DIR "third_party/ruby32/lib")
+set(ZLIB_ROOT "third_party/vcextdeps")
+
 # 读取 RGM 版本号
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/ext/settings.txt")
     file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/ext/settings.txt" RGM_VERSION_LINE REGEX "^RGM_VERSION=([0-9]+\.*)+$")
@@ -11,6 +26,7 @@ endif()
 find_package(Git)
 if(Git_FOUND)
     execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse --short=10 HEAD
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         OUTPUT_VARIABLE RGM_REVISION_STRING
         OUTPUT_STRIP_TRAILING_WHITESPACE
     )
@@ -27,6 +43,7 @@ if(NOT EXISTS ${SRC_DIR})
         SYMBOLIC
     )
 endif()
+
 # RGM
 add_executable(Game)
 aux_source_directory(${SRC_DIR} SRC_LIST)
@@ -81,14 +98,14 @@ if(Ruby_EXT_LIBRARY_DIR)
 
     # Ruby fiddle
     unset(Ruby_EXT_FIDDLE_LIBRARIES)
-    _RUBY_FIND_EXT(Ruby_EXT_FIDDLE_LIBRARIES "fiddle;fiddle.a")
+    _RUBY_FIND_EXT(Ruby_EXT_FIDDLE_LIBRARIES "fiddle;fiddle.a;fiddle.lib")
     target_link_libraries(Game ${Ruby_EXT_FIDDLE_LIBRARIES})
     # Ruby zlib
     unset(Ruby_EXT_ZLIB_LIBRARIES)
-    _RUBY_FIND_EXT(Ruby_EXT_ZLIB_LIBRARIES "zlib;zlib.a")
+    _RUBY_FIND_EXT(Ruby_EXT_ZLIB_LIBRARIES "zlib;zlib.a;zlib.lib")
     target_link_libraries(Game ${Ruby_EXT_ZLIB_LIBRARIES})
 else()
-    # message(SEND_ERROR "Could NOT find Ruby EXT: ${_Ruby_EXT_LIBRARIES_NAME} (missing Ruby_EXT_LIBRARY_DIR)")
+    message(SEND_ERROR "Could NOT find Ruby EXT: ${_Ruby_EXT_LIBRARIES_NAME} (missing Ruby_EXT_LIBRARY_DIR)")
 endif()
 # 搜索基础三方库路径
 if(WIN32)
@@ -157,7 +174,7 @@ if(WIN32)
     target_link_libraries(Game
         "d3d9;d3d11"
         "dinput8;dwrite;gdi32"
-        "shell32;ws2_32;iphlpapi;imagehlp;shlwapi;bcrypt"
+        "ntdll;shell32;ws2_32;iphlpapi;imagehlp;shlwapi;bcrypt"
         "setupapi;advapi32;uuid;version;oleaut32;ole32;imm32;winmm;user32;rpcrt4;usp10"
     )
 endif()

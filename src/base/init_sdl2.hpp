@@ -25,7 +25,7 @@
 #include "core/core.hpp"
 #include "sound_pitch.hpp"
 
-INCBIN(controller_mapping, "./ext/gamecontrollerdb.txt");
+INCBIN(controller_mapping, "../ext/gamecontrollerdb.txt");
 
 namespace rgm::base {
 /// @brief 辅助设定 SDL Hint 的类，在 cen_library 中使用
