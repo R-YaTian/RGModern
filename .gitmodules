@@ -1,19 +1,19 @@
 [submodule "third_party/centurion"]
 	path = third_party/centurion
-	url = https://gitee.com/Anty168/centurion.git
+	url = https://github.com/albin-johansson/centurion.git
 	branch = stable
 [submodule "third_party/concurrentqueue"]
 	path = third_party/concurrentqueue
-	url = https://gitee.com/Anty168/concurrentqueue.git
+	url = https://github.com/cameron314/concurrentqueue.git
 [submodule "third_party/readerwriterqueue"]
 	path = third_party/readerwriterqueue
-	url = https://gitee.com/Anty168/readerwriterqueue.git
+	url = https://github.com/cameron314/readerwriterqueue.git
 [submodule "third_party/incbin"]
 	path = third_party/incbin
-	url = https://gitee.com/Anty168/incbin.git
+	url = https://github.com/graphitemaster/incbin.git
 [submodule "third_party/xorstr"]
 	path = third_party/xorstr
-	url = https://gitee.com/Anty168/xorstr.git
+	url = https://github.com/JustasMasiulis/xorstr.git
 [submodule "third_party/fiber"]
 	path = third_party/fiber
-	url = https://gitee.com/Anty168/fiber.git
+	url = https://github.com/paladin-t/fiber.git

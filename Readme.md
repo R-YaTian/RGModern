@@ -3,11 +3,8 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/gxm11/RGModern)
 [![CodeFactor](https://www.codefactor.io/repository/github/gxm11/rgmodern/badge)](https://www.codefactor.io/repository/github/gxm11/rgmodern)
 ![C++20](https://img.shields.io/badge/C%2B%2B-20-blue)
-![Ruby32](https://img.shields.io/badge/Ruby-3.2.2-red)
-![SDL2](https://img.shields.io/badge/SDL-2.26.5-132b48)
-
-![release build](https://github.com/gxm11/RGModern/actions/workflows/main.yml/badge.svg?event=release)
-![push build](https://github.com/gxm11/RGModern/actions/workflows/main.yml/badge.svg?event=push)
+![Ruby32](https://img.shields.io/badge/Ruby-3.2.8-red)
+![SDL2](https://img.shields.io/badge/SDL-2.32.0-132b48)
 
 当前版本：v1.0.4
 
