@@ -39,6 +39,7 @@ opt_*/**
 .vscode/settings.json
 .vscodecounter/*
 *.zip
+!Project1/Graphics.zip
 *.7z
 *.log
 *.tar
@@ -49,8 +50,6 @@ opt_*/**
 
 doc/
 history/
-Project1/Audio/**
-Project1/Graphics/**
 Project1/config.ini
 Project1/RGSS103J.dll
 Project1/RGSS104E.dll

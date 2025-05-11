@@ -2,22 +2,20 @@ cmake_minimum_required(VERSION 3.25)
 project(RGModern)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
-set(Ruby_VERSION_MAJOR 3)
-set(Ruby_VERSION_MINOR 2)
-set(Ruby_VERSION_PATCH 8)
+set(ENV{MY_RUBY_HOME} "${CMAKE_CURRENT_SOURCE_DIR}/third_party/ruby32")
+set(ENV{SDL2DIR} "${CMAKE_CURRENT_SOURCE_DIR}/third_party/vcextdeps")
+set(ENV{FFI_DIR} "${CMAKE_CURRENT_SOURCE_DIR}/third_party/vcextdeps")
+set(ENV{LIBZIP_DIR} "${CMAKE_CURRENT_SOURCE_DIR}/third_party/vcextdeps")
 
-set(ENV{MY_RUBY_HOME} "third_party/ruby32")
-set(ENV{SDL2DIR} "third_party/vcextdeps")
-set(ENV{FFI_DIR} "third_party/vcextdeps")
-set(ENV{LIBZIP_DIR} "third_party/vcextdeps")
-
-set(Ruby_CONFIG_INCLUDE_DIR "third_party/ruby32/include")
-set(Ruby_INCLUDE_DIR "third_party/ruby32/include")
-set(Ruby_EXT_LIBRARY_DIR "third_party/ruby32/lib")
+set(ZLIB_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/third_party/vcextdeps")
+set(Ruby_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/third_party/ruby32/include")
+set(Ruby_CONFIG_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/third_party/ruby32/include")
+set(Ruby_EXT_LIBRARY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/third_party/ruby32/lib")
 set(Ruby_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/third_party/ruby32/lib/vcruntime140-ruby320-static.lib")
-set(ZLIB_ROOT "third_party/vcextdeps")
 
-set(Direct3D9_FIND_REQUIRED_d3dx9 1)
+if(MSVC)
+    set(Direct3D9_FIND_REQUIRED_d3dx9 1)
+endif()
 
 # 读取 RGM 版本号
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/ext/settings.txt")
@@ -63,7 +61,7 @@ set_property(SOURCE ext/icon.rc
     PROPERTY LANGUAGE RC    # 设置资源文件属性
 )
 target_compile_features(Game PRIVATE
-    cxx_std_20              # 使用C++20
+    cxx_std_20              # 使用 C++20
 )
 target_compile_options(Game PRIVATE
     "$<$<CXX_COMPILER_ID:MSVC>:-utf-8>"        # MSVC需要显式指定源文件使用utf8
@@ -74,8 +72,6 @@ target_compile_definitions(Game PRIVATE
     "NOMINMAX" # 使std::max和std::min生效
     "RGM_FULLVERSION=\"${RGM_FULLVERSION}\""
     "CC_VERSION=\"${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}\""
-    "$<$<STREQUAL:${RGM_RENDER_BACKEND},D3D11>:RGM_USE_D3D11>"
-    "$<$<STREQUAL:${RGM_RENDER_BACKEND},OPENGL>:RGM_USE_OPENGL>"
 )
 if(WIN32)
     # 静态链接声明所需宏
@@ -183,7 +179,7 @@ if(WIN32)
     endif()
     if(MSVC)
         target_link_libraries(Game
-            "$ENV{DXSDK_DIR}/Lib/x86/d3dx9.lib"
+            ${DIRECT3D9_d3dx9_LIBRARY}
         )
     endif()
     target_link_libraries(Game
