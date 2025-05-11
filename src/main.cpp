@@ -22,7 +22,7 @@
 
 /// @brief SDL_Main 函数，程序的实际入口。
 int main(int argc, char* argv[]) {
-#ifdef __WIN32
+#ifdef __WIN32__
   SetConsoleOutputCP(65001);
 #endif
 

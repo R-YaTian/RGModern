@@ -13,9 +13,11 @@ set(ENV{LIBZIP_DIR} "third_party/vcextdeps")
 
 set(Ruby_CONFIG_INCLUDE_DIR "third_party/ruby32/include")
 set(Ruby_INCLUDE_DIR "third_party/ruby32/include")
-set(Ruby_LIBRARY "third_party/ruby32/lib/vcruntime140-ruby320-static")
 set(Ruby_EXT_LIBRARY_DIR "third_party/ruby32/lib")
+set(Ruby_LIBRARY "${CMAKE_CURRENT_SOURCE_DIR}/third_party/ruby32/lib/vcruntime140-ruby320-static.lib")
 set(ZLIB_ROOT "third_party/vcextdeps")
+
+set(Direct3D9_FIND_REQUIRED_d3dx9 1)
 
 # 读取 RGM 版本号
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/ext/settings.txt")
@@ -121,6 +123,9 @@ find_package(OpenGL REQUIRED)
 find_package(ZLIB REQUIRED)
 find_package(LibZip REQUIRED)
 find_package(libffi REQUIRED)
+if(MSVC)
+    find_package(Direct3D9 REQUIRED)
+endif()
 set(CENTURION_INCLUDE_DIRS "./third_party/centurion/src")
 set(CONCURRENTQUEUE_INCLUDE_DIRS "./third_party/concurrentqueue")
 set(INCBIN_INCLUDE_DIRS "./third_party/incbin")
@@ -145,6 +150,11 @@ target_include_directories(Game PRIVATE
     ${XORSTR_INCLUDE_DIRS}
     ${FIBER_INCLUDE_DIRS}
 )
+if(MSVC)
+    target_include_directories(Game PRIVATE
+        ${DIRECT3D9_INCLUDE_DIR}
+    )
+endif()
 # LIB
 target_link_libraries(Game
     ${Ruby_LIBRARIES}
@@ -169,6 +179,11 @@ if(WIN32)
             "png;tiff;webp;jpeg;jbig;lzma;deflate;zstd;lerc;jxl;hwy;sharpyuv"
             "flac;mpg123;vorbisfile;opusfile;ogg;vorbis;opus"
             "d3dx9"
+        )
+    endif()
+    if(MSVC)
+        target_link_libraries(Game
+            "$ENV{DXSDK_DIR}/Lib/x86/d3dx9.lib"
         )
     endif()
     target_link_libraries(Game
@@ -250,4 +265,8 @@ if(MSVC)
     target_sources(Game PRIVATE
         "${CMAKE_CURRENT_BINARY_DIR}/${_INCBIN_OUTPUT}"
     )
+
+    # Disable /SAFESEH
+    target_link_options(Game PRIVATE "/SAFESEH:NO")
+    target_compile_options(Game PRIVATE /wd4005)
 endif()

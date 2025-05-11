@@ -246,21 +246,21 @@
 /* #undef HAVE_LIBDECOR_H */
 
 #define HAVE_D3D_H 1
-/* #undef HAVE_D3D11_H */
+#define HAVE_D3D11_H 1
 /* #undef HAVE_D3D12_H */
 #define HAVE_DDRAW_H 1
 #define HAVE_DSOUND_H 1
 #define HAVE_DINPUT_H 1
 #define HAVE_XINPUT_H 1
-/* #undef HAVE_WINDOWS_GAMING_INPUT_H */
+#define HAVE_WINDOWS_GAMING_INPUT_H 1
 #define HAVE_DXGI_H 1
 
 #define HAVE_MMDEVICEAPI_H 1
 #define HAVE_AUDIOCLIENT_H 1
 #define HAVE_TPCSHRD_H 1
 #define HAVE_SENSORSAPI_H 1
-/* #undef HAVE_ROAPI_H */
-/* #undef HAVE_SHELLSCALINGAPI_H */
+#define HAVE_ROAPI_H 1
+#define HAVE_SHELLSCALINGAPI_H 1
 
 /* #undef USE_POSIX_SPAWN */
 
@@ -337,7 +337,7 @@
 /* #undef SDL_INPUT_WSCONS */
 /* #undef SDL_JOYSTICK_ANDROID */
 /* #undef SDL_JOYSTICK_HAIKU */
-/* #undef SDL_JOYSTICK_WGI */
+#define SDL_JOYSTICK_WGI 1
 #define SDL_JOYSTICK_DINPUT 1
 #define SDL_JOYSTICK_XINPUT 1
 /* #undef SDL_JOYSTICK_DUMMY */
@@ -457,7 +457,7 @@
 /* #undef SDL_VIDEO_DRIVER_N3DS */
 
 #define SDL_VIDEO_RENDER_D3D 1
-/* #undef SDL_VIDEO_RENDER_D3D11 */
+#define SDL_VIDEO_RENDER_D3D11 1
 /* #undef SDL_VIDEO_RENDER_D3D12 */
 #define SDL_VIDEO_RENDER_OGL 1
 /* #undef SDL_VIDEO_RENDER_OGL_ES */

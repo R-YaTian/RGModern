@@ -21,7 +21,9 @@
 #pragma once
 #include "shader_base.hpp"
 /* include shader_base before other c headers */
+#if defined(__WIN32__)
 #include "d3dx9.h"
+#endif
 #include "direct3d9/gray.h"
 #include "direct3d9/hue.h"
 #include "direct3d9/tone.h"

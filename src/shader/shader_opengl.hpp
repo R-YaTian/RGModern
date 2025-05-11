@@ -59,7 +59,7 @@ struct shader_base<opengl> {
   /// @brief 初始化 OpenGL
   static void setup(cen::renderer&) {
     bool ret = init_gl_functions();
-    if (!ret) throw std::system_error{};
+    if (!ret) throw std::system_error{ std::make_error_code(std::errc::not_supported), "OGL init failed!" };
   }
 
   /// @brief 设置 gl 系列函数的地址

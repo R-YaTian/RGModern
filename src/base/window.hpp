@@ -85,7 +85,7 @@ struct get_hwnd {
   uint64_t* p_handle;
 
   void run(auto& worker) {
-#ifdef __WIN32
+#ifdef __WIN32__
     SDL_SysWMinfo& info = RGMDATA(cen_library).window_info;
     *p_handle = reinterpret_cast<uint64_t>(info.info.win.window);
 #endif

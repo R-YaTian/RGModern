@@ -71,7 +71,7 @@ int screen_height = 480;
 /* 支持的 driver 的类型 */
 enum class driver_type { software, opengl, direct3d9, direct3d11 };
 
-#ifdef __WIN32
+#ifdef __WIN32__
 std::string driver_name = "direct3d9";
 driver_type driver = driver_type::direct3d9;
 bool opengl = false;
@@ -108,7 +108,7 @@ void load_data(std::map<std::string, section_t>& data) {
   Set(window_height, "System", "WindowHeight");
   Set(screen_width, "System", "ScreenWidth");
   Set(screen_height, "System", "ScreenHeight");
-#ifdef __WIN32
+#ifdef __WIN32__
   Set(driver_name, "Kernel", "RenderDriver");
 #endif
 #undef Set

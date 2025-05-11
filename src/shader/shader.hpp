@@ -20,7 +20,7 @@
 
 #pragma once
 #include "shader_base.hpp"
-#ifdef __WIN32
+#ifdef __WIN32__
 #include "shader_direct3d11.hpp"
 #include "shader_direct3d9.hpp"
 #endif
