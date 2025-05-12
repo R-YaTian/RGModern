@@ -180,6 +180,7 @@ if(WIN32)
     if(MSVC)
         target_link_libraries(Game
             ${DIRECT3D9_d3dx9_LIBRARY}
+            "${CMAKE_CURRENT_SOURCE_DIR}/third_party/vcextdeps/lib/msvcp_atomic_wait_static.lib"
         )
     endif()
     target_link_libraries(Game
